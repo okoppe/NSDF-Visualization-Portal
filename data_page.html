@@ -3,42 +3,35 @@
   <head>
     <script src="data_page.js"></script>
     <link rel="stylesheet" href="data_page.css">
-
     <meta charset="utf-8">
     <title>NSDF Port</title>
   </head>
   <body>
-    <div class="main">
+    <div class="wrapper">
       <div class="header_backdrop">
-        <div class="header_grid">
-          <div class="header_image">
+        <div class="header_text">
+          <h1>NSDF Data Portal Example</h1>
+          <div id="header_img">
             <img src="http://nsdf.sci.utah.edu/images/images/NSDF.png" alt="NSDF logo">
           </div>
-          <div class="header_text">
-            <h1>NSDF Data Portal Example</h1>
-          </div>
         </div>
       </div>
 
-      <section class="button_section">
-        <div class="data_set_selecter">
-          <label for="data_sets">Choose a data set:</label>
-          <select name="data_sets" id="data_sets">
-            <option value="foam slice">foam slice</option>
-            <option value="3D rabbit">3D Rabbit</option>
-            <option value="other data set">other</option>
-          </select>
-        </div>
-        <div class="view_options">
-          <button class="cloud_lab" onclick="cloud_lab_links()"> Run on Cloud Lab</button>
-          <button class="locally" type="submit" onclick="locally_files()">Run locally (downlad file)</button>
-          <button class="colab" onclick="colab_links()">Run on Google Colab</button>
-        </div>
+      <div class="sidenav">
+        <a href="data_page2.html" title="NSDF" rel="home" class="">Data Portal</a>
       </div>
-    </section>
 
-    <div class="sidenav">
-      <a href="data_page.html" title="NSDF" rel="home" class="">Data Portal</a>
+      <div class="button_section">
+        <label for="data_sets">Choose a data set:</label>
+        <select name="data_sets" id="data_sets">
+          <option value="foam slice">foam slice</option>
+          <option value="3D rabbit">3D Rabbit</option>
+          <option value="other data set">other</option>
+        </select>
+        <button class="cloud_lab button" onclick="cloud_lab_links()"> Run on Cloud Lab</button>
+        <button class="locally button" type="submit" onclick="locally_files()">Run locally (downlad file)</button>
+        <button class="colab button" onclick="colab_links()">Run on Google Colab</button>
+      </div>
     </div>
 
   </body>
