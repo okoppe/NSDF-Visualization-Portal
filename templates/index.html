@@ -18,7 +18,7 @@
       </div>
 
       <div class="sidenav">
-        <a href="data_page2.html" title="NSDF" rel="home" class="">Data Portal</a>
+        <a title="NSDF" rel="home" class="" onclick="window.location.href='{{ url_for( 'index') }}';">Data Portal</a>
       </div>
 
       <div class="button_section">
@@ -26,15 +26,15 @@
           <label for="data_sets">Choose a data set:</label>
           <select name="data_sets" id="data_sets">
             <option value="foam slice">foam slice</option>
-            <option value="3D rabbit">3D Rabbit</option>
-            <option value="other data set">other</option>
+            <!-- <option value="3D rabbit">3D Rabbit</option> -->
+            <!-- <option value="other data set">other</option> -->
           </select>
         </div>
         <div class="button_containers">
           <button class="cloud_lab button" onclick="cloud_lab_links()"> Run on Cloud Lab</button>
           <button class="locally button" type="submit" onclick="locally_files()">Run locally (downlad file)</button>
           <button class="colab button" onclick="colab_links()">Run on Google Colab</button>
-          <button class="inline button" onclick="window.location.href='{{ url_for( 'updatePlot') }}';">View Data Set inline</button>
+          <button class="inline button" onclick="window.location.href='{{ url_for( 'plot_it0') }}';">View Data Set inline</button>
         </div>
 
         <!-- Code that adds the plot if inline button is clicked -->
@@ -42,19 +42,51 @@
         {% if text %}
 
         <div class="foam_mg">
-          <img src='static/foam_slice.png'/>
+          <img src="{{text}}"/>
         </div>
 
-        <form action="/update_img" method="POST"> <!-- note action -->
-          <div class="colormap_menu">
-            <label for="color_maps">Colormap:</label>
-            <select name="colourmap">
-              <option value= "plasma">plasma</option>
-              <option value= "inferno">inferno</option>
-              <option value="viridis">viridis</option>
-            </select>
+
+        <form class="colormap-selector" method="POST" action="{{ url_for('updatePlot') }}">
+          <div class="form-group">
+            <!-- Adds the data source selection Menu -->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">Data Source: </span>
+                <select name="data_source" class="selectpicker form-control">
+                  <option name = "random" value= "3" {% if dataSorce ==3 %} selected {% endif %}>Random</option>
+                  <option name = "OSN" value= "0" {% if dataSorce ==0 %} selected {% endif %}>Open Storage Newtork (OSN) Pod</option>
+                  <option name = "UoU_server" value= "1" {% if dataSorce ==1 %} selected {% endif %}>University of Utah Campus Server</option>
+                  <option name = "Wasabi" value="2" {% if dataSorce ==2 %} selected {% endif %}>Wasabi Commercial Cloud Storage</option>
+                </select>
+              </div>
+
+            <!-- Adds the data source selection Menu -->
+            <div class="form-group">
+              <span class="input-group-addon">Colormap: </span>
+              <select name="cmap_select" class="selectpicker form-control">
+                <option name = "plasma" value= "plasma" {% if colormap =="plasma" %} selected {% endif %}>plasma</option>
+                <option name = "inferno" value= "inferno" {% if colormap =="inferno" %} selected {% endif %}>inferno</option>
+                <option name = "viridis" value="viridis" {% if colormap =="viridis" %} selected {% endif %}>viridis</option>
+              </select>
+            </div>
+
+            <div class="time_slider">
+              <span>time (0-3) Current: {{time}}</span>
+              <input type="range" min="0" max="3" name="timeslider" {% if time %} value="{{time}}" {% endif %}>
+            </div>
+
+            <div class="slice_slider">
+              <span>Slice (0-1023) Current Slice: {{slice}}</span>
+              <input type="range" min="0" max="1023" name="sliceslider" {% if slice %} value="{{slice}}"  { % else % } value="513" {% endif %}>
+            </div>
+
+            <div class="Resolution_slider">
+              <span>Resolution (coarse=-5,full=0) Current: {{res}}</span>
+              <input type="range" min="-5" max="0" name="resslider" {% if res %} value="{{res}}"  { % else % } value="-2" {% endif %}>
+            </div>
+
+            <button type="submit" class="btn btn-default">Update Image</button>
           </div>
-          <button type="button" onclick="window.location.href='{{ url_for( 'updatePlot') }}';">update plot</button>
         </form>
 
 
