@@ -230,13 +230,21 @@ def ShowData_download(data, cmap="viridis", plot=None,width = 6): #saves figure 
     axis = fig.add_subplot(1, 1, 1)
     axis.imshow(data,origin='lower', cmap=cmap)
     axis.axis('off')
-    fig.savefig("static/foam_slice.png")
-    return "yes"
+    new_graph_name = "static/foam_slice" + str(time.time()) + ".png"
 
-def plot_it(cmap):
-    first_query=db.readSlice(dir=2, slice=512, access=access, time=0, quality=-3)
+    for filename in os.listdir('static/'):
+        if filename.startswith('foam_'):  # not to remove other images
+            os.remove('static/' + filename)
+
+    fig.savefig(new_graph_name, bbox_inches='tight')
+    return new_graph_name
+
+def plot_it(cmap, dataSorce, time, slice, res):
+    db=CachedDataset(sources[dataSorce])
+    access=db.createAccess()
+    first_query=db.readSlice(dir=2, slice=slice, access=access, time=time, quality=res)
     text = ShowData_download(first_query, cmap=cmap, plot=None,width = 6)
-    return render_template("index.html", text=text)
+    return render_template("index.html", text=text, colormap=cmap, dataSorce=dataSorce, time=time, slice=slice, res=res)
 
 db=CachedDataset(sources[0])
 access=db.createAccess()
@@ -251,18 +259,25 @@ def index():
 
 @app.route("/load_img")
 def plot_it0():
-    return plot_it("viridis")
+    return plot_it("viridis", 0, 0, 512, -3)
+
+global count
+count = 0
 
 @app.route('/update_img',  methods=["GET", "POST"])
 def updatePlot():
-    if request.method == "POST":
+    colormap = request.form.get('cmap_select')
+    data_source = request.form.get('data_source')
+    time = request.form.get('timeslider') #glitchy for 0 on gui
+    slice = request.form.get('sliceslider')
+    resolution = request.form.get('resslider')
 
-        select = request.form
-        print(req)
+    #if type(select)== NoneType:
+        #return plot_it("")
+    #return ("""<p> I work</p>""" + time)
 
-        return plot_it(select['value'])
-    return plot_it("viridis")
-
+    return(plot_it(str(colormap), int(data_source), int(time), int(slice), int(resolution))) # just to see what select is
 
 if __name__ == "__main__":
     app.run(debug=True)
+
