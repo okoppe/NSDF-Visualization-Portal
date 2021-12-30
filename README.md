@@ -1,7 +1,21 @@
 # NSDF-Data-Portal
 Repo for the code for the NSDF example data portal.
 
-The website utilizes flask which is a python micro framework. To view the site locally you must run it on a local host.
+For the inline data display to function properly a Bokeh Server must be set up. To run a Bokeh Server locally follow these steps:
+
+1. Open the project directory in terminal or command line (cd \folder-dirctory (on mac)).
+
+2. Run the Bokeh server files with the following comand:
+
+```
+bokeh serve --show Bokeh_Server
+```
+This should create a bokeh server at the location of: http://localhost:5006/Bokeh_Server
+
+
+Now you can run the flask app by following these instructions:
+
+This page utilizes flask which is a python micro framework. To view the site locally you must run it on a local host.
 Process to run locally:
 
 1: open the project directory in terminal or command line
@@ -31,6 +45,3 @@ python3 main.py
 ```
 
 6. Navigate to the url for your local host (should be outputed in the terminal)
-
-TODO:
-fix the download button, add funcitonality so that drop down menu for data sets changes what code is show when in-line button is run (currently always displays the foam slice data set, also need to generlize the foam slice vis code so I can use it for other data sets), add interactivity to the inline vis (all buttons that appear do not work at the moment.) Add cloud lab links once we have them.
