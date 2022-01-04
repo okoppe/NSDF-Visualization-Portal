@@ -1,18 +1,18 @@
 # NSDF-Data-Portal
 Repo for the code for the NSDF example data portal.
 
-For the inline data display to function properly a Bokeh Server must be set up. To run a Bokeh Server locally follow these steps:
-
-1. Open the project directory in terminal or command line (cd \folder-dirctory (on mac)).
-
-2. Run the Bokeh server files with the following comand:
+For the inline data display to function properly a Bokeh Server must be set up. To run a Bokeh Server locally follow these steps (steps for running the server on an  ARM64 CPU machine):
 
 ```
-bokeh serve --show Bokeh_Server
+git clone okoppe/NSDF-Data-Portal (github.com)
+cd NSDF-Data-Porta
+
+python3 -m pip install bokeh numpy matplotlib scipy OpenVisusNoGui
+
+# change as needed
+PUBLIC_HOSTNAME= node1.nsdf-k8s.nsdf-testbed-pg0.utah.cloudlab.us
+python3 -m bokeh serve --show Bokeh_Server --allow-websocket-origin=$PUBLIC_HOSTNAME:5006\
 ```
-This should create a bokeh server at the location of: http://localhost:5006/Bokeh_Server
-
-
 Now you can run the flask app by following these instructions:
 
 This page utilizes flask which is a python micro framework. To view the site locally you must run it on a local host.
