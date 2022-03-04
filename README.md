@@ -46,7 +46,9 @@ Start the Flask server and local host:
 # NOTE to access from outside localhost (NOTE: dangerous!) replace the line 
 # app.run(debug=True)
 # with the line
-# app.run(host="0.0.0.0", port=5000, debug=True)
+# app.run(host="0.0.0.0", port=4999, debug=True)
+# set port 4999 open to outside traffic using:
+# sudo ufw allow 4999
 
 python3 main.py
 ```
