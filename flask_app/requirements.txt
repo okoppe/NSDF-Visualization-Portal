@@ -6,3 +6,6 @@ requests
 multiprocessing
 time
 notebook
+numpy 
+scipy
+OpenVisusNoGui
