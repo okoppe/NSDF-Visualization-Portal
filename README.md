@@ -5,7 +5,7 @@ This data portal automaticly makes avalible data visulizations and interactive d
 
 It accomplishes this using Bokeh servers and Git Python.
 
-This code generates a data portal running using the flask web framework. It runs a script that reads in Juypter Notebooks from a GitHub repository and then servers the bokeh servers automaticly. A pipe is run between the flask app and the script to pass the list of running notebooks to the data portal. This allows the data portal to automaticly allow any notebook uploaded to the repo to be viewed and interacted with.
+This code generates a data portal using the flask web framework. It runs a script that reads in Juypter Notebooks from a GitHub repository and then servers the bokeh servers automaticly. A pipe is run between the flask app and the script to pass the list of running notebooks to the data portal. This allows the data portal to automaticly allow any notebook uploaded to the repo to be viewed and interacted with.
 
 Setting up the data portal to run on a Ubuntu server:
 
