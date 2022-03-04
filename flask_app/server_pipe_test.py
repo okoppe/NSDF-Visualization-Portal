@@ -10,6 +10,9 @@ import git
 import signal
 import time
 
+your_servers_ip = "your_servers_ip_goes_here"
+local_git_hub_repo_dir = "your_local_git_hub_repo_directory"
+link_to_git_hub_repo_to_pull_from = "your_notebook_repo_link"
 class jupterNotebook:
     '''
     The jupterNotebook class represents a single juypter notebook.
@@ -26,9 +29,9 @@ class jupterNotebook:
     '''
     def serveBokehApp(self): 
         def startServer(self):
-            BOKEH_ALLOW_WS_ORIGIN='ns1007523.ip-51-81-155.us:'+str(self.port)
+            BOKEH_ALLOW_WS_ORIGIN=your_servers_ip+':'+str(self.port)
             subprocess.call(['python3', '-m', 'bokeh', 'serve',  self.filePath, '--port', str(self.port), 
-                 '--allow-websocket-origin=ns1007523.ip-51-81-155.us:'+str(self.port)])
+                 '--allow-websocket-origin='+your_servers_ip+':'+str(self.port)])
             
         thread1 = threading.Thread(target=startServer, args=(self,))
         thread1.start()
@@ -43,7 +46,7 @@ class jupterNotebook:
     Getter function to return the link to the Bokeh server.
     '''
     def getPortLink(self):
-        return ('http://ns1007523.ip-51-81-155.us:'+str(self.port)+'/'+self.fileName.replace(".ipynb",""))
+        return ('http://'+your_servers_ip+':'+str(self.port)+'/'+self.fileName.replace(".ipynb",""))
 
     '''
     Getter for the port that the Bokeh server will be deployed on.
@@ -129,7 +132,7 @@ class jupterNoteBookList:
             if newFile not in self.fileArray:
                 self.fileArray.append(newFile)
                 port = self.ports.assignNewPort()
-                jnb = jupterNotebook(newFile, "/home/owenkoppe/Juypter-Notebook-Repo/"+newFile, port)
+                jnb = jupterNotebook(newFile, local_git_hub_repo_dir+newFile, port)
                 jnb.serveBokehApp()
                 self.notebookDict[newFile] = jnb
                 self.BokehLinkDict[newFile] = jnb.getPortLink()
@@ -159,7 +162,7 @@ class jupterNoteBookList:
         return self.BokehLinkDict
                 
 
-j1 = jupterNoteBookList('https://github.com/okoppe/Juypter-Notebook-Repo.git', "/home/owenkoppe/Juypter-Notebook-Repo")
+j1 = jupterNoteBookList(link_to_git_hub_repo_to_pull_from, local_git_hub_repo_dir)
 j1.loopUpdate()
 
 def f(child_conn):
