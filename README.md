@@ -1,51 +1,46 @@
 # NSDF-Data-Portal
-Repo for the code for the NSDF example data portal.
+Repository for the code for the NSDF example data portal.
 
-For the inline data display to function properly a Bokeh Server must be set up. To run a Bokeh Server locally follow these steps (steps for running the server on an  ARM64 CPU machine):
+This data portal automaticly makes avalible data visulizations and interactive data visulizations from Juypter Notebook stored on a GitHub repository. It automates the process of going from Juypter Notebook code to an easily sharable data visulization. 
+
+It accomplishes this using Bokeh servers and Git Python.
+
+This code generates a data portal running using the flask web framework. It runs a script that reads in Juypter Notebooks from a GitHub repository and then servers the bokeh servers automaticly. A pipe is run between the flask app and the script to pass the list of running notebooks to the data portal. This allows the data portal to automaticly allow any notebook uploaded to the repo to be viewed and interacted with.
+
+Setting up the data portal to run on a Ubuntu server:
 
 ```
 git clone https://github.com/okoppe/NSDF-Data-Portal.git
+git clone LINK TO YOUR REPOSITORY WITH JUYPTER NOTEBOOKS
+
 cd NSDF-Data-Portal
 
 sudo apt-get update -y
 sudo apt-get install -y python3-pip
+'''
 
-python3 -m pip install bokeh numpy matplotlib scipy OpenVisusNoGui
+Set up a virtual enviroment:
 
-# change as needed
-PUBLIC_HOSTNAME=$(hostname -f)
-PORT=5006
-echo URL: http://$PUBLIC_HOSTNAME:$PORT/Bokeh_Server"
-python3 -m bokeh serve --show Bokeh_Server --allow-websocket-origin=$PUBLIC_HOSTNAME:$PORT
-```
-Now you can run the flask app by following these instructions:
+'''
+cd flask_app
 
-This page utilizes flask which is a python micro framework. To view the site locally you must run it on a local host.
-Process to run locally:
-
-1: open the project directory in terminal or command line
-
-2: set up a virtual enviroment: 
-
-```
 sudo apt-get update -y
 sudo apt-get install -y python3-venv
 python3 -m venv venv
 ```
-
-3. Next, activate the virtual enviroment:
+activate the virtual enviroment:
 
 ```
 source venv/bin/activate
 ```
 
-4. Install the requirments:
+Install the requirments:
 
 ```
 python3 -m pip install -r requirements.txt
 ```
 
-5. Start the Flask server and local host:
+Start the Flask server and local host:
 
 ```
 # NOTE to access from outside localhost (NOTE: dangerous!) replace the line 
@@ -54,6 +49,6 @@ python3 -m pip install -r requirements.txt
 # app.run(host="0.0.0.0", port=5000, debug=True)
 
 python3 main.py
-```
+'''
 
 6. Navigate to the url for your local host (should be outputed in the terminal)
