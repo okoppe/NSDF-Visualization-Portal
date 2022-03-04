@@ -17,11 +17,11 @@ cd NSDF-Data-Portal
 
 sudo apt-get update -y
 sudo apt-get install -y python3-pip
-'''
+```
 
 Set up a virtual enviroment:
 
-'''
+```
 cd flask_app
 
 sudo apt-get update -y
@@ -49,6 +49,8 @@ Start the Flask server and local host:
 # app.run(host="0.0.0.0", port=5000, debug=True)
 
 python3 main.py
-'''
+```
+
+You may be prometed to enter your sudo password.
 
 6. Navigate to the url for your local host (should be outputed in the terminal)
