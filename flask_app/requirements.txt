@@ -1,0 +1,18 @@
+flask
+pandas
+bokeh
+git
+requests
+multiprocessing
+time
+'''
+    parent_conn,child_conn = Pipe()
+    p = Process(target=f, args=(child_conn,))
+    p.start()
+
+    BokehLinkDictFlaskCopy2 = parent_conn.recv()
+    p.join()
+
+    return render_template("index.html", noteBookNames=list(BokehLinkDictFlaskCopy2.keys()),
+        bool_files = len(BokehLinkDictFlaskCopy2.keys()), selectedValue = selectedValue2,
+        linkToBokeh = BokehLinkDictFlaskCopy2[selectedValue2], test=selectedValue2)'''
