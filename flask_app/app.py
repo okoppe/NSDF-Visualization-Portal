@@ -42,4 +42,5 @@ def download():
     return send_from_directory(directory="YOUR LOCAL REPO PATH", path=selectedValue2, as_attachment=True)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=4999, debug=True)
+    app.run(debug=True)
+    #app.run(host="0.0.0.0", port=4999, debug=True)
