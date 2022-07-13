@@ -10,22 +10,20 @@ This code generates a data portal using the flask web framework. It runs a scrip
 Setting up the data portal to run on a Ubuntu server:
 
 ```
-git clone https://github.com/okoppe/NSDF-Data-Portal.git
-git clone LINK TO YOUR REPOSITORY WITH JUYPTER NOTEBOOKS
-
-cd NSDF-Data-Portal
-
 sudo apt-get update -y
-sudo apt-get install -y python3-pip
+sudo apt-get install -y python3-pip python3-venv
+
+REPO=https://github.com/nsdf-fabric/simple-jupyter-notebooks
+git clone ${REPO}
+
+git clone https://github.com/okoppe/NSDF-Data-Portal.git
+cd NSDF-Data-Portal
 ```
 
 Set up a virtual enviroment:
 
 ```
 cd flask_app
-
-sudo apt-get update -y
-sudo apt-get install -y python3-venv
 python3 -m venv venv
 ```
 activate the virtual enviroment:
@@ -37,20 +35,24 @@ source venv/bin/activate
 Install the requirments:
 
 ```
-python3 -m pip install -r requirements.txt
+python3 -m pip install flask pandas bokeh requests multiprocess notebook numpy scipy OpenVisusNoGui GitPython
 ```
 
-Start the Flask server and local host:
+Edit the `server_pipe_test.py` and edit the first part, for example:
 
 ```
-# NOTE to access from outside localhost (NOTE: dangerous!) replace the line 
-# app.run(debug=True)
-# with the line
-# app.run(host="0.0.0.0", port=4999, debug=True)
-# set port 4999 open to outside traffic using:
-# sudo ufw allow 4999
+your_servers_ip = "155.101.6.68"
+local_git_hub_repo_dir = "/home/u0705839/simple-jupyter-notebooks"
+link_to_git_hub_repo_to_pull_from = "https://github.com/nsdf-fabric/simple-jupyter-notebooks"
+```
 
-python3 main.py
+Start the Flask server:
+- if you want to run locally, modify `app.py` to use `app.run(debug=True)`
+- if you want to run globally, modify `app.py` to have `app.run(host="0.0.0.0", port=4999, debug=True)`
+  - also: `sudo ufw allow 4999 && sudo ufw reload`
+
+```
+python3 app.py
 ```
 
 You may be prometed to enter your sudo password.
