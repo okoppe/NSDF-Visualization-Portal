@@ -13,9 +13,6 @@ Setting up the data portal to run on a Ubuntu server:
 sudo apt-get update -y
 sudo apt-get install -y python3-pip python3-venv
 
-REPO=https://github.com/nsdf-fabric/simple-jupyter-notebooks
-git clone ${REPO}
-
 git clone https://github.com/okoppe/NSDF-Data-Portal.git
 cd NSDF-Data-Portal
 ```
@@ -25,26 +22,11 @@ Set up a virtual enviroment:
 ```
 cd flask_app
 python3 -m venv venv
-```
-activate the virtual enviroment:
-
-```
 source venv/bin/activate
+python3 -m pip install -r requirements.txt
 ```
 
-Install the requirments:
 
-```
-python3 -m pip install flask pandas bokeh requests multiprocess notebook numpy scipy OpenVisusNoGui GitPython
-```
-
-Edit the `server_pipe_test.py` and edit the first part, for example:
-
-```
-your_servers_ip = "155.101.6.68"
-local_git_hub_repo_dir = "/home/u0705839/simple-jupyter-notebooks"
-link_to_git_hub_repo_to_pull_from = "https://github.com/nsdf-fabric/simple-jupyter-notebooks"
-```
 
 Start the Flask server:
 - if you want to run locally, modify `app.py` to use `app.run(debug=True)`
@@ -52,6 +34,23 @@ Start the Flask server:
   - also: `sudo ufw allow 4999 && sudo ufw reload`
 
 ```
+
+# this is getting your public ip
+export SERVER_IP=$(curl ifconfig.me)
+
+# choose a github repo with bokeh notebooks
+export GITHUB_REPO=https://github.com/okoppe/Juypter-Notebook-Repo
+
+# it will be cloned locally here
+export LOCAL_GITHUB_REPO=/tmp/nsdf-data-portal/$(echo $GITHUB_REPO | sed 's/https\?:\/\///')
+
+# do the first clone
+mkdir -p $(dirname $LOCAL_GITHUB_REPO)
+git clone ${GITHUB_REPO} ${LOCAL_GITHUB_REPO}
+
+# run the flask app
+cd flask_app
+source venv/bin/activate
 python3 app.py
 ```
 
