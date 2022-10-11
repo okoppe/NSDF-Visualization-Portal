@@ -37,7 +37,7 @@ git clone https://github.com/okoppe/Juypter-Notebook-Repo /tmp/nsdf-data-portal/
 sudo ufw allow 5000:6000/tcp
 
 # run the flask app
-cd flask_app
+cd app
 source venv/bin/activate
 
 # this may be helpful to release old processes
