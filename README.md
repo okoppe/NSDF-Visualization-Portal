@@ -23,7 +23,7 @@ Set up a virtual enviroment:
 cd flask_app
 python3 -m venv venv
 source venv/bin/activate
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r app/requirements.txt
 ```
 
 Edit the `config.yaml` file and change as needed
