@@ -2,7 +2,7 @@ import os, logging, subprocess, threading, glob, signal, time, traceback,random,
 from flask import Flask, render_template, request, Response, send_from_directory, redirect
 import os
 from multiprocessing import Process,Queue,Pipe
-from server_pipe_test import f
+from update_repo_files_pipe import f
 
 #subprocess.call(['ufw', 'allow', os.environ['PORT_START']])
 #subprocess.call(['EXPOSE', os.environ['PORT_START']])
