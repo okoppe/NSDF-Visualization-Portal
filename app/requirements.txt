@@ -1,0 +1,12 @@
+flask
+pandas
+bokeh
+panel
+OpenVisus
+scikit-image
+ipython
+matplotlib
+GitPython
+notebook
+requests
+psutil
