@@ -6,7 +6,7 @@ worker-ports:
   to: 7000
 
  # choose a github repo with bokeh notebooks
-remote: https://github.com/okoppe/Juypter-Notebook-Repo
+remote: "${REPO_LINK}" #Example Repo to use: https://github.com/okoppe/Juypter-Notebook-Repo
 
  # it will be cloned locally here
 local: /tmp/nsdf-data-portal/Juypter-Notebook-Repo
