@@ -185,7 +185,6 @@ def LoadConfigFile():
     #     return yaml.load(f, Loader=SafeLoader)
 
 config=LoadConfigFile()
-# config['ip'] = os.environ['HOST_IP']
 
 j1 = jupterNoteBookList(config['remote'], config['worker-ports']['from'], config['ip'])
 j1.loopUpdate()
