@@ -1,12 +1,9 @@
 FROM python:3.7
-ENV HOST_IP=$HOST_IP
-RUN echo "Oh dang look at that $HOST_IP"
 RUN mkdir /app
 EXPOSE 5999-6005
 WORKDIR /app/
 ADD . /app/
 RUN pip install -r requirements.txt
 RUN chmod +x run.sh
-RUN pip install --upgrade OpenVisus
 CMD ["./run.sh"]
 # CMD ["python", "/app/app.py"]

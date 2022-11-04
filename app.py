@@ -61,5 +61,6 @@ def LoadConfigFile():
 if __name__ == "__main__":
     logger.setLevel(logging.INFO)
     config=LoadConfigFile()
+    print(config['ip'])
     logger.info(f"Notebooks {config}")
     app.run(host="0.0.0.0", port=config["port"], debug=bool(config["debug"]))
