@@ -9,3 +9,4 @@ GitPython
 notebook
 requests
 psutil
+envyaml

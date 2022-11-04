@@ -13,6 +13,7 @@ from git import Repo
 import signal
 import time
 import yaml
+from envyaml import EnvYAML
 
 class jupterNotebook:
     '''
@@ -178,14 +179,15 @@ class jupterNoteBookList:
         return self.BokehLinkDict
 
 def LoadConfigFile():
-    from yaml.loader import SafeLoader
-    with open(os.path.join(os.path.dirname(__file__),'config.yaml')) as f:
-        return yaml.load(f, Loader=SafeLoader)
+    return EnvYAML('config.yaml')
+    # from yaml.loader import SafeLoader
+    # with open(os.path.join(os.path.dirname(__file__),'config.yaml')) as f:
+    #     return yaml.load(f, Loader=SafeLoader)
 
 config=LoadConfigFile()
+# config['ip'] = os.environ['HOST_IP']
 
 j1 = jupterNoteBookList(config['remote'], config['worker-ports']['from'], config['ip'])
-#j1 = jupterNoteBookList("https://github.com/okoppe/Juypter-Notebook-Repo.git", 5000)
 j1.loopUpdate()
 
 def f(child_conn):

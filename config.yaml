@@ -1,4 +1,4 @@
-ip: ${HOST_IP} # curl ifconfig.me
+ip: "${HOST_IP}" # curl ifconfig.me
 port: 5999
 debug: False
 worker-ports:

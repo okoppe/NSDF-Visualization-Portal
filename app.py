@@ -1,6 +1,5 @@
 import os, logging, subprocess, threading, glob, signal, time, traceback,random, yaml
 from flask import Flask, render_template, request, Response, send_from_directory, redirect
-import os
 from multiprocessing import Process,Queue,Pipe
 from update_repo_files_pipe import f
 
@@ -54,13 +53,15 @@ def download():
 
 # //////////////////////////////////////////////////////////////////////////
 def LoadConfigFile():
-    from yaml.loader import SafeLoader
-    with open(os.path.join(os.path.dirname(__file__),'config.yaml')) as f:
-        return yaml.load(f, Loader=SafeLoader)
+    from envyaml import EnvYAML
+    return EnvYAML('config.yaml')
+    # from yaml.loader import SafeLoader
+    # with open(os.path.join(os.path.dirname(__file__),'config.yaml')) as f:
+    #     return yaml.load(f, Loader=SafeLoader)
 
 if __name__ == "__main__":
     logger.setLevel(logging.INFO)
     config=LoadConfigFile()
-    print(config['ip'])
     logger.info(f"Notebooks {config}")
+    logger.info(os.environ)
     app.run(host="0.0.0.0", port=config["port"], debug=bool(config["debug"]))
