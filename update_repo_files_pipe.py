@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from multiprocessing import Process, Pipe
 import subprocess
 import os
 import threading
 from psutil import process_iter
 from signal import SIGTERM
 import git
-# from git import Repo
 from envyaml import EnvYAML
 
 class jupterNotebook:
@@ -45,8 +43,6 @@ class jupterNotebook:
     Shuttdowns the Bokeh server and removes it's virtual enviromnet.
     '''
     def shutdown(self):
-        from psutil import process_iter
-
         for proc in process_iter():
             for conns in proc.connections(kind='inet'):
                 if conns.laddr.port == self.port:
@@ -88,18 +84,15 @@ class handlePorts:
         if (len(self.openPorts)>0):
             new_port = self.openPorts[0]
             self.openPorts.remove(new_port)
-            #subprocess.call(['EXPOSE', str(new_port)])
             return new_port
         else:
             self.NextNewPort = self.NextNewPort+1
-            #subprocess.call(['EXPOSE', str(self.NextNewPort-1)])
             return(self.NextNewPort-1)
     '''
     This method adds back old port numbers to the list of avalible ports.
     It stops allowing web traffic to the port.
     '''
     def addBackOldPort(self, oldPort):
-        #subprocess.call(['ufw', 'deny', str(oldPort)])
         self.openPorts.append(oldPort)
 
 
