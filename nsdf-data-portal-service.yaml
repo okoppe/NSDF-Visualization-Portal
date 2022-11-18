@@ -1,0 +1,14 @@
+# nsdf-data-portal-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nsdf-data-portal-service
+spec:
+  type: NodePort
+  selector:
+    app: nsdf-data-portal
+  ports:
+    - name: "http"
+      port: 80
+      targetPort: 80
+      nodePort: 30080

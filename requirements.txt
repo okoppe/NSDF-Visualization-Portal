@@ -1,12 +1,11 @@
 flask
-pandas
+# pandas
 bokeh
-panel
-scikit-image
-ipython
-matplotlib
+# panel
+# ipython
+# matplotlib
 GitPython
 notebook
-requests
+# requests
 psutil
 envyaml

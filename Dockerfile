@@ -6,4 +6,3 @@ ADD . /app/
 RUN pip install -r requirements.txt
 RUN chmod +x run.sh
 CMD ["./run.sh"]
-# CMD ["python", "/app/app.py"]

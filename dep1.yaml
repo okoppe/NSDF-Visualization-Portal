@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nsdf-data-portal
+  labels:
+    k8s-app: nsdf-data-portal
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      k8s-app: nsdf-data-portal
+  template:
+    metadata: 
+      labels:
+        k8s-app: nsdf-data-portal
+    spec:
+      containers:
+      - name: nsdf-data-portal-pod
+        image: okoppe/nsdf-data-portal
+        env:
+        - name: REPO_LINK
+          value: 'https://github.com/okoppe/Juypter-Notebook-Repo'
+        - name: HOST_IP
+          value: 127.0.0.1
+        resources:
+           limits:
+             memory: 2Gi
+             cpu: 0.5Gi
+           requests:
+             memory: 0.5Gi
+             cpu: 0.5Gi
+        ports:
+        - containerPort: 80
+        # command: ["sh", "-c", "sleep infinity"]
