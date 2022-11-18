@@ -4,7 +4,6 @@
 from multiprocessing import Process, Pipe
 import subprocess
 import os
-import bokeh
 import threading
 from psutil import process_iter
 from signal import SIGTERM
