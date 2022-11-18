@@ -2,7 +2,6 @@ flask
 pandas
 bokeh
 panel
-scikit-image
 ipython
 matplotlib
 GitPython

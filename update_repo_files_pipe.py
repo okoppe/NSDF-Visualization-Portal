@@ -9,10 +9,7 @@ import threading
 from psutil import process_iter
 from signal import SIGTERM
 import git
-from git import Repo
-import signal
-import time
-import yaml
+# from git import Repo
 from envyaml import EnvYAML
 
 class jupterNotebook:
@@ -34,24 +31,30 @@ class jupterNotebook:
     def serveBokehApp(self):
         def startServer(self):
             BOKEH_ALLOW_WS_ORIGIN=str(self.hostIP)+':'+str(self.port)
-            subprocess.call(['python3', '-m', 'bokeh', 'serve',  self.filePath, '--port', str(self.port),
-                 '--allow-websocket-origin='+str(self.hostIP)+':'+str(self.port)])
+
+            # The name of the virtual environment folder
+            venvName = self.fileName.replace(".ipynb","")
+
+            # Create the notebooks virtual environment, start the virtual enviroment, and serve the bokeh server.
+            os.system(f'python3 -m venv {venvName} && . {venvName}/bin/activate && pip install -r notebookRequirements.txt'+
+            f'&& python3 -m bokeh serve {self.filePath} --port {str(self.port)} --allow-websocket-origin={str(self.hostIP)}:{str(self.port)}')
 
         thread1 = threading.Thread(target=startServer, args=(self,))
         thread1.start()
 
     '''
-    Shuttdowns the Bokeh server using npx.
+    Shuttdowns the Bokeh server and removes it's virtual enviromnet.
     '''
     def shutdown(self):
-         from psutil import process_iter
-         from signal import SIGTERM
+        from psutil import process_iter
 
-         for proc in process_iter():
-             for conns in proc.connections(kind='inet'):
-                 if conns.laddr.port == self.port:
-                     proc.send_signal(SIGTERM)
-        #subprocess.call(['npx', 'kill-port', str(self.port)])
+        for proc in process_iter():
+            for conns in proc.connections(kind='inet'):
+                if conns.laddr.port == self.port:
+                    proc.send_signal(SIGTERM)
+        
+        # Remove the virtual enviroment
+        os.system(f'rm -rf  {self.fileName.replace(".ipynb","")}/')
 
     '''
     Getter function to return the link to the Bokeh server.
@@ -110,7 +113,7 @@ class jupterNoteBookList:
         self.gitHubLink = gitHubLink
         self.repoDir = os.getcwd()+"/notebooks"
         if(os.path.isdir(self.repoDir)==False):
-            Repo.clone_from(self.gitHubLink, self.repoDir)
+            git.Repo.clone_from(self.gitHubLink, self.repoDir)
         self.gitHubLink = gitHubLink
         self.servedFiles = 0
         self.notebookDict = {}
@@ -179,10 +182,10 @@ class jupterNoteBookList:
         return self.BokehLinkDict
 
 def LoadConfigFile():
+    '''
+    Loads in the env variables from the config file
+    '''
     return EnvYAML('config.yaml')
-    # from yaml.loader import SafeLoader
-    # with open(os.path.join(os.path.dirname(__file__),'config.yaml')) as f:
-    #     return yaml.load(f, Loader=SafeLoader)
 
 config=LoadConfigFile()
 

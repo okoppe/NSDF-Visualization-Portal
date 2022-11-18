@@ -2,10 +2,7 @@ import os, logging, subprocess, threading, glob, signal, time, traceback,random,
 from flask import Flask, render_template, request, Response, send_from_directory, redirect
 from multiprocessing import Process,Queue,Pipe
 from update_repo_files_pipe import f
-
-#subprocess.call(['ufw', 'allow', os.environ['PORT_START']])
-#subprocess.call(['EXPOSE', os.environ['PORT_START']])
-#subprocess.call(['sudo', 'ufw', 'allow', '5000'])
+from envyaml import EnvYAML
 
 selectedValue2 = " "
 
@@ -25,8 +22,7 @@ def index():
     BokehLinkDictFlaskCopy = parent_conn.recv()
     p.join()
     return render_template("index.html", noteBookNames=list(BokehLinkDictFlaskCopy.keys()), BokehLinkDictFlaskCopy = BokehLinkDictFlaskCopy,
-        bool_files = len(BokehLinkDictFlaskCopy.keys()), selectedValue = "select a notebook") #len(BokehLinkDictFlaskCopy), selectedValue = list(BokehLinkDictFlaskCopy.keys())[0],
-        #linkToBokeh = BokehLinkDictFlask[selectedValue])
+        bool_files = len(BokehLinkDictFlaskCopy.keys()), selectedValue = "select a notebook")
 
 #path for veiwing data set inline
 @app.route('/chooseDataSet/<noteBookName>', methods = ['POST', 'GET'])
@@ -53,11 +49,10 @@ def download():
 
 # //////////////////////////////////////////////////////////////////////////
 def LoadConfigFile():
-    from envyaml import EnvYAML
+    '''
+    Loads in the env variables from the config file
+    '''
     return EnvYAML('config.yaml')
-    # from yaml.loader import SafeLoader
-    # with open(os.path.join(os.path.dirname(__file__),'config.yaml')) as f:
-    #     return yaml.load(f, Loader=SafeLoader)
 
 if __name__ == "__main__":
     logger.setLevel(logging.INFO)
