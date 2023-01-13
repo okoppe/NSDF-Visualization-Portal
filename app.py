@@ -2,6 +2,7 @@ import os, logging
 from flask import Flask, render_template, send_from_directory
 from multiprocessing import Process,Pipe
 from update_repo_files_pipe import f
+from waitress import serve
 from envyaml import EnvYAML
 
 selectedValue2 = " "
@@ -59,4 +60,5 @@ if __name__ == "__main__":
     config=LoadConfigFile()
     logger.info(f"Notebooks {config}")
     logger.info(os.environ)
-    app.run(host="0.0.0.0", port=config["port"], debug=bool(config["debug"]))
+    # app.run(host="0.0.0.0", port=config["port"], debug=bool(config["debug"]))
+    serve(app, host='0.0.0.0', port=config["port"])
