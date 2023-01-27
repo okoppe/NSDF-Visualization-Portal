@@ -61,4 +61,4 @@ if __name__ == "__main__":
     logger.info(f"Notebooks {config}")
     logger.info(os.environ)
     # app.run(host="0.0.0.0", port=config["port"], debug=bool(config["debug"]))
-    serve(app, host='0.0.0.0', port=config["port"])
+    serve(app, host=config["ip"], port=config["port"])
