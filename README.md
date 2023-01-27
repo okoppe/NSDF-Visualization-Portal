@@ -52,4 +52,4 @@ You may be prometed to enter your sudo password.
 
 Docker commands
 ```docker build -t nsdf-data-portal .```
-```docker run -p 5999-6005:5999-6005 -e HOST_IP=127.0.0.1 REPO_LINK='https://github.com/okoppe/Juypter-Notebook-Repo' -d nsdf-data-portal```
+```docker run -p 5999-6005:5999-6005 -e HOST_IP=127.0.0.1 -e REPO_LINK='https://github.com/okoppe/Juypter-Notebook-Repo' -d nsdf-data-portal```
