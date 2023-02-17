@@ -1,6 +1,8 @@
 # NSDF-Data-Portal
 Repository for the code for the NSDF example data portal.
 
+Live demo of a data portal using this repository: http://155.101.6.68:5999.
+
 This data portal automaticly makes avalible data visulizations and interactive data visulizations from Juypter Notebook stored on a GitHub repository. It automates the process of going from Juypter Notebook code to an easily sharable data visulization. 
 
 It accomplishes this using Bokeh servers and Git Python.
