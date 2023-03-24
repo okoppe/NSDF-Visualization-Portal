@@ -1,15 +1,23 @@
 # NSDF-Data-Portal
-Repository for the code for the NSDF example data portal.
 
 Live demo of a data portal using this repository: http://155.101.6.68:5999.
 
-This data portal automaticly makes avalible data visulizations and interactive data visulizations from Juypter Notebook stored on a GitHub repository. It automates the process of going from Juypter Notebook code to an easily sharable data visulization. 
+Docker hub project for this repository: https://hub.docker.com/repository/docker/okoppe/nsdf-data-portal/general
 
-It accomplishes this using Bokeh servers and Git Python.
+## Overview:
 
-This code generates a data portal using the flask web framework. It runs a script that reads in Juypter Notebooks from a GitHub repository and then servers the bokeh servers automaticly. A pipe is run between the flask app and the script to pass the list of running notebooks to the data portal. This allows the data portal to automaticly allow any notebook uploaded to the repo to be viewed and interacted with.
+This data portal monitors a GitHub repository where it scans for new Jupyter Notebooks with visualizations created with Bokeh or Panel. When a new notebook is added to the GitHub repository, it is read in and the data visualization is automatically made available on the web. 
+This automates the process of sharing Jupyter Notebook visualizations to the web.
 
-Setting up the data portal to run on a Ubuntu server:
+## Tools used:
+This code generates a data portal using the flask web framework. It runs a script that reads in Jupyter Notebooks from a GitHub repository and then utilizes bokeh’s server capabilities to share notebooks to the web. A pipe is run between the flask app and the script to pass the list of running notebooks to the data portal. This allows the data portal to automatically allow any notebook uploaded to the repo to be viewed and interacted with.
+
+## Running via Docker:
+
+```docker build -t nsdf-data-portal .```
+```docker run -p 5999-6005:5999-6005 -e HOST_IP={YOUR_IP} -e REPO_LINK='https://github.com/okoppe/Juypter-Notebook-Repo' -d nsdf-data-portal```
+
+## Running on a Ubuntu server without Docker:
 
 ```
 sudo apt-get update -y
@@ -19,7 +27,7 @@ git clone https://github.com/okoppe/NSDF-Data-Portal.git
 cd NSDF-Data-Portal
 ```
 
-Set up a virtual enviroment:
+Set up a virtual environment:
 
 ```
 cd flask_app
@@ -48,10 +56,7 @@ source venv/bin/activate
 ./run.sh
 ```
 
-You may be prometed to enter your sudo password.
+You may be prompted to enter your sudo password.
 
-6. Navigate to the url for your local host (should be outputed in the terminal)
+6. Navigate to the url for your local host (should be outputted in the terminal)
 
-Docker commands
-```docker build -t nsdf-data-portal .```
-```docker run -p 5999-6005:5999-6005 -e HOST_IP=127.0.0.1 -e REPO_LINK='https://github.com/okoppe/Juypter-Notebook-Repo' -d nsdf-data-portal```
