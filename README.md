@@ -1,6 +1,6 @@
-# NSDF-Data-Portal
+# NSDF-Visualization-Portal
 
-Live demo of a data portal using this repository: http://155.101.6.68:5999.
+Live demo of a visualization portal using this repository: http://155.101.6.68:5999.
 
 Docker hub project for this repository: https://hub.docker.com/repository/docker/okoppe/nsdf-data-portal/general
 
